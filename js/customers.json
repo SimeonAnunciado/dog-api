@@ -1,0 +1,36 @@
+
+
+[
+	
+	{
+		"id" : 1 ,
+		"name" : "Rick Aldrin",
+		"company" : "Diverse Innovation",
+		"phone" : "555-555"
+	},
+	{
+		"id" : 2 ,
+		"name" : "Edrich Palomo",
+		"company" : "Diverse Innovation",
+		"phone" : "555-555"
+	},
+	{
+		"id" : 3 ,
+		"name" : "frederick puno",
+		"company" : "Diverse Innovation",
+		"phone" : "555-555"
+	},
+	{
+		"id" : 4 ,
+		"name" : "Andrew Eduarte",
+		"company" : "Diverse Innovation",
+		"phone" : "555-555"
+	},
+	{
+		"id" : 5 ,
+		"name" : "Simeon Anunciado",
+		"company" : "Diverse Innovation",
+		"phone" : "555-555"
+	}
+
+]
