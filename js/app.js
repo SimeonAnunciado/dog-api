@@ -1,7 +1,7 @@
 function init(){
-	customer();
+	fired_events();
 	setTimeout(function(){
-		customer();
+		fired_events();
 	},5000);
 }
 init();
@@ -30,7 +30,7 @@ function empty_value(){
 	document.querySelector('#breed_count').value = '';
 }
 
-function customer(){
+function fired_events(){
 	document.querySelector('#form_id').addEventListener('submit', (e) =>{
 	const breed = document.querySelector('#breed_option_select').value;
 	const breed_count = document.querySelector('#breed_count').value;
@@ -55,9 +55,12 @@ function dog_api_process(breed,breed_count){
 			let response = JSON.parse(this.responseText);
 			if (response.status === 'success') {
 				let dog_img = response.message;
-				let output = '';
+				let breed_name = breed;
+				let output = `<div class="text-left">Breed : <strong> ${breed_name} </strong></div><br>`;
 				dog_img.forEach((v)=>{
-					output += `<div class="thumbnail">
+					output += `	
+								<div class="thumbnail">
+									
 									<a href="#">
 									<img src="${v}" alt="Nature" style="width:100%">
 										<div class="caption">
