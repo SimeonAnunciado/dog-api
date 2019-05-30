@@ -35,50 +35,47 @@ function fired_events(){
 	const breed = document.querySelector('#breed_option_select').value;
 	const breed_count = document.querySelector('#breed_count').value;
 
-	if (breed !='' || breed_count !='') {
-		// show_alert('Please fill All fields','success');
-		dog_api_process(breed,breed_count);
-		empty_value(); // empty value
+	if (breed !='' && breed_count !='') {
+		dog_api_process(breed,breed_count)
+		.then(resp => display_dog_img(resp,breed))
+		.catch(err => console.log(err));
+
 	}else{
 		show_alert('Please fill All fields','error');
 	}
 
 	e.preventDefault();
-	});
+});
 }
 
-function dog_api_process(breed,breed_count){
-	const xhr = new XMLHttpRequest();
-	xhr.open('GET',`https://dog.ceo/api/breed/${breed}/images/random/${breed_count}`,true);
-	xhr.onload = function(){
-		if (this.status === 200) {
-			let response = JSON.parse(this.responseText);
-			if (response.status === 'success') {
-				let dog_img = response.message;
-				let breed_name = breed;
-				let output = `<div class="text-left">Breed : <strong> ${breed_name} </strong></div><br>`;
-				dog_img.forEach((v)=>{
-					output += `	
-								<div class="thumbnail">
-									
-									<a href="#">
-									<img src="${v}" alt="Nature" style="width:100%">
-										<div class="caption">
-											<a href='https://dog.ceo' target="_blank" class='btn btn-success btn-block '>View More<a>
-										</div>
-									</a>
-								</div>
-								`;
-				})
-				document.getElementById('get_dog').innerHTML = output;
-			}
-		}
-	}
-	xhr.onerror = function (){
-		show_alert('Something went wrong','error');
-	}
-	xhr.send();
+
+async function dog_api_process(breed,breed_count){
+	const request = await fetch(`https://dog.ceo/api/breed/${breed}/images/random/${breed_count}`);
+	const reponse_data = await request.json();
+	return reponse_data;
 }
+
+function display_dog_img(resp,breed){
+	let output = `<div class="text-left">Breed : <strong> ${breed} </strong></div><br>`;
+
+	resp.message.forEach((v)=>{
+		output += `	
+		<div class="thumbnail">
+
+		<a href="#">
+		<img src="${v}" alt="Nature" style="width:100%">
+		<div class="caption">
+		<a href='https://dog.ceo' target="_blank" class='btn btn-success btn-block '>View More<a>
+		</div>
+		</a>
+		</div>
+		`;
+	})
+	document.getElementById('get_dog').innerHTML = output;
+	empty_value(); // empty value
+}
+
+
 selected_option_breed();
 function selected_option_breed(){
 	const all_breed = ['affenpinscher','african','airedale','akita','appenzeller','basenji','beagle','bluetick','borzoi','bouvier','boxer','brabancon','briard','bostonbulldog','englishbulldog','frenchbulldog','staffordshirebullterrier','cairn','australiancattledog','chihuahua','chow','clumber','cockapoo','bordercollie','coonhound','cardigancorgi','cotondetulear','dachshund','dalmatian','greatdane','scottishdeerhound','dhole','dingo','doberman','norwegianelkhound','entlebucher','eskimo','bichonfrise','germanshepherd','italiangreyhound','groenendael','afghanhound','bassethound','bloodhound','englishhound','ibizanhound','walkerhound','husky','keeshond','kelpie','komondor','kuvasz','labrador','leonberg','lhasa','malamute','malinois','maltese','bullmastiff','englishmastiff','tibetanmastiff','mexicanhairless','mix','bernesemountain','swissmountain','newfoundland','otterhound','papillon','pekinese','pembroke','miniaturepinscher','germanpointer','germanlonghairpointer','pomeranian','miniaturepoodle','standardpoodle','toypoodle','pug','puggle','pyrenees','redbone','chesapeakeretriever','curlyretriever','flatcoatedretriever','goldenretriever','rhodesianridgeback','rottweiler','saluki','samoyed','schipperke','giantschnauzer','miniatureschnauzer','englishsetter','gordonsetter','irishsetter','englishsheepdog','shetlandsheepdog','shiba','shihtzu','blenheimspaniel','brittanyspaniel','cockerspaniel','irishspaniel','japanesespaniel','sussexspaniel','welshspaniel','englishspringer','stbernard','americanterrier','australianterrier','bedlingtonterrier','borderterrier','dandieterrier','foxterrier','irishterrier','kerryblueterrier','lakelandterrier','norfolkterrier','norwichterrier','patterdaleterrier','russellterrier','scottishterrier','sealyhamterrier','silkyterrier','tibetanterrier','toyterrier','westhighlandterrier','wheatenterrier','yorkshireterrier','vizsla','weimaraner','whippet','irishwolfhound',];
