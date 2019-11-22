@@ -15,7 +15,7 @@
 			
 		<div class="col-md-3"></div>
 			<div class="col-md-6">
-				<h3>Fetch Dog API</h3>
+				<h3>Play Dogs</h3>
 				<form autocomplete="off" id="form_id">
 
 					<div class="form-group row">
