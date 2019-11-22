@@ -56,7 +56,7 @@ async function dog_api_process(breed,breed_count){
 }
 
 function display_dog_img(resp,breed){
-	let output = `<div class="text-left">Breed : <strong> ${breed} </strong></div><br>`;
+	let output = `<div class="text-left alert alert-success">Breed : <strong> ${breed} </strong></div><br>`;
 
 	resp.message.forEach((v)=>{
 		output += `	
